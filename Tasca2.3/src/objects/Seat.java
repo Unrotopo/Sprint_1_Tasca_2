@@ -1,9 +1,11 @@
 package objects;
 
+import utils.CinemaManagement;
+
 public class Seat {
 
-    private int rowNum;
-    private int seatNum;
+    private final int rowNum;
+    private final int seatNum;
     private String client;
 
     public Seat(int rowNum, int seatNum, String client) {
@@ -13,21 +15,30 @@ public class Seat {
     }
 
     public int getRowNum() {
-        return rowNum;
+        return this.rowNum;
     }
 
     public int getSeatNum() {
-        return seatNum;
+        return this.seatNum;
     }
 
     public String getClient() {
-        return client;
+        return this.client;
     }
 
-    /*
-    Faltan métodos para:
-    Equals: retornarà que dues butaques són iguales si la fila i el seient són iguals.
+    public static boolean equals(Seat seat) {
+        for (Seat existingSeat : CinemaManagement.showSeats()) {
+            if (existingSeat.getRowNum() == seat.getRowNum() &&
+                    existingSeat.getSeatNum() == seat.getSeatNum()) {
+                return true;
+            }
+        } return false;
+    }
 
-    toString: retornarà un String amb el següent format: “Fila: 5, Seient: 20, Persona: Maria Febrer”
-     */
+    public String toString() {
+        return "Row: " + this.rowNum +
+                ", Seat: " + this.seatNum +
+                ", Client: " + this.client;
+    }
+
 }
