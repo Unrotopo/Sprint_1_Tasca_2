@@ -13,7 +13,7 @@ import objects.Seat;
 public class CinemaManagement {
 
     public final Cinema cinema;
-    protected static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
 
     public CinemaManagement(Cinema cinema) {
         this.cinema = cinema;
@@ -25,7 +25,6 @@ public class CinemaManagement {
 
         do {
             System.out.println("""
-                    
                     -----  CINEMA MANAGEMENT  -----
                     1. Show booked seats
                     2. Show client's booked seats
@@ -50,7 +49,13 @@ public class CinemaManagement {
                     CinemaManagement.cancelBooking();
                     break;
                 case 5:
-                    CinemaManagement.showClientSeats().forEach(seat -> CinemaManagement.cancelBooking());
+                    CinemaManagement.showSeats().forEach(seat -> {
+                        try {
+                            SeatManagement.removeSeat(seat.getRowNum(), seat.getSeatNum());
+                        } catch (FreeSeatException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    });
                     break;
                 case 0:
                     System.out.println("Goodbye!");
