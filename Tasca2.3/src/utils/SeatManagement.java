@@ -21,7 +21,7 @@ public class SeatManagement {
         if (searchSeat(seat.getRowNum(), seat.getSeatNum()) == -1) {
             seats.add(seat);
         } else {
-            throw new FreeSeatException("The selected seat is already occupied");
+            throw new FreeSeatException("The selected seat is already occupied\n");
         }
     }
 
@@ -29,7 +29,7 @@ public class SeatManagement {
         if (searchSeat(rowNum, seatNum) != -1) {
             seats.remove(searchSeat(rowNum, seatNum));
         } else {
-            throw new FreeSeatException("The selected seat is free");
+            throw new FreeSeatException("The selected seat is already free\n");
         }
     }
 

@@ -58,7 +58,7 @@ public class CinemaManagement {
                     flag = false;
                     break;
                 default:
-                    System.out.println("Invalid option!\nTry with a number from 0 to 5.");
+                    System.out.println("Invalid option!\nTry with a number from 0 to 5.\n");
             }
         } while (flag);
     }
@@ -117,7 +117,7 @@ public class CinemaManagement {
         Seat seat = new Seat(desiredRow, desiredSeat, clientName);
         try {
             SeatManagement.addSeat(seat);
-            System.out.println("Seat booked successfully");
+            System.out.println("Seat booked successfully\n");
         } catch (FreeSeatException e) {
             System.out.println(e.getMessage());
         }
@@ -155,7 +155,7 @@ public class CinemaManagement {
         String name = sc.nextLine();
         for (char c : name.toCharArray()) {
             if (Character.isDigit(c)) {
-                throw new IncorrectClientNameException("Name cannot contain numbers");
+                throw new IncorrectClientNameException("Name cannot contain numbers\n");
             }
         }
         return name;
