@@ -1,5 +1,3 @@
-package main;
-
 import objects.Cinema;
 
 public class Main {

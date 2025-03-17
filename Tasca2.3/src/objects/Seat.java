@@ -6,7 +6,7 @@ public class Seat {
 
     private final int rowNum;
     private final int seatNum;
-    private String client;
+    private final String client;
 
     public Seat(int rowNum, int seatNum, String client) {
         this.rowNum = rowNum;
@@ -35,6 +35,7 @@ public class Seat {
         } return false;
     }
 
+    @Override
     public String toString() {
         return "Row: " + this.rowNum +
                 ", Seat: " + this.seatNum +

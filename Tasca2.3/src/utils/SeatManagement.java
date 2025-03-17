@@ -34,9 +34,9 @@ public class SeatManagement {
     }
 
     public static int searchSeat(int rowNum, int seatNum) {
+        Seat newSeat = new Seat(rowNum, seatNum, null);
         for (int i = 0; i < seats.size(); i++) {
-            if (seats.get(i).getRowNum() == rowNum &&
-                    seats.get(i).getSeatNum() == seatNum) {
+            if (Seat.equals(newSeat)) {
                 return i;
             }
         }
