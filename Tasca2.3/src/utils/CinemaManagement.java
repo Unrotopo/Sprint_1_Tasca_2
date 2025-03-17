@@ -45,7 +45,7 @@ public class CinemaManagement {
                     CinemaManagement.cancelBooking();
                     break;
                 case 5:
-                    CinemaManagement.showSeats().forEach(seat -> {
+                    CinemaManagement.showClientSeats().forEach(seat -> {
                         try {
                             SeatManagement.removeSeat(seat.getRowNum(), seat.getSeatNum());
                         } catch (FreeSeatException e) {
