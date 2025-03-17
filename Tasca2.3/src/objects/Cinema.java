@@ -1,7 +1,6 @@
 package objects;
 
-import utils.CinemaManagement;
-import utils.SeatManagement;
+import utils.*;
 
 import java.util.Scanner;
 

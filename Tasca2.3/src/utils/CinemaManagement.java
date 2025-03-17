@@ -3,12 +3,8 @@ package utils;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.FreeSeatException;
-import exceptions.IncorrectClientNameException;
-import exceptions.IncorrectRowException;
-import exceptions.IncorrectSeatException;
-import objects.Cinema;
-import objects.Seat;
+import exceptions.*;
+import objects.*;
 
 public class CinemaManagement {
 
