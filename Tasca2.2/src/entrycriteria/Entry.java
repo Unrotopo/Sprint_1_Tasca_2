@@ -1,4 +1,6 @@
-package utils;
+package entrycriteria;
+
+import exceptions.EntryException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,8 +20,10 @@ public class Entry {
 
     public static int readInt(String message) throws InputMismatchException {
         System.out.println(message);
-        if (sc.hasNextInt()) {
-            return sc.nextInt();
+        int input = sc.nextInt();
+        if (input > 0) {
+            sc.nextLine();
+            return input;
         } else {
             throw new InputMismatchException();
         }
@@ -27,19 +31,18 @@ public class Entry {
 
     public static float readFloat(String message) throws InputMismatchException {
         System.out.println(message);
-        String input = sc.next();
-        if (input.contains(".")) {
-            return Float.parseFloat(input);
+        if (sc.hasNextFloat()) {
+            return sc.nextFloat();
         } else {
+            sc.nextLine();
             throw new InputMismatchException();
         }
     }
 
     public static double readDouble(String message) throws InputMismatchException {
         System.out.println(message);
-        String input = sc.next();
-        if (input.contains(".")) {
-            return Double.parseDouble(input);
+        if (sc.hasNextDouble()) {
+            return sc.nextDouble();
         } else {
             throw new InputMismatchException();
         }
@@ -59,6 +62,7 @@ public class Entry {
 
     public static String readString(String message) throws EntryException {
         System.out.println(message);
+        sc.nextLine();
         String input = sc.nextLine();
         if (!input.isEmpty()) {
             return input;
