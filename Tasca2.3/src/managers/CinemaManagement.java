@@ -1,10 +1,12 @@
-package utils;
+package managers;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.*;
-import objects.*;
+import entities.*;
+
+import static entities.Cinema.seatManagement;
 
 public class CinemaManagement {
 
@@ -33,25 +35,26 @@ public class CinemaManagement {
             sc.nextLine();
             switch (option) {
                 case 1:
-                    CinemaManagement.showSeats().forEach(System.out::println);
+                    showSeats().forEach(System.out::println);
                     break;
                 case 2:
-                    CinemaManagement.showClientSeats().forEach(System.out::println);
+                    showClientSeats().forEach(System.out::println);
                     break;
                 case 3:
-                    CinemaManagement.bookSeat();
+                    bookSeat();
                     break;
                 case 4:
-                    CinemaManagement.cancelBooking();
+                    cancelBooking();
                     break;
                 case 5:
-                    CinemaManagement.showClientSeats().forEach(seat -> {
+                    showClientSeats().forEach(seat -> {
                         try {
-                            SeatManagement.removeSeat(seat.getRowNum(), seat.getSeatNum());
+                            seatManagement.removeSeat(seat.getRowNum(), seat.getSeatNum());
                         } catch (FreeSeatException e) {
                             System.out.println(e.getMessage());
                         }
                     });
+                    System.out.println("All client's bookings have been removed.\n");
                     break;
                 case 0:
                     System.out.println("Goodbye!");
@@ -63,11 +66,11 @@ public class CinemaManagement {
         } while (flag);
     }
 
-    public static ArrayList<Seat> showSeats() {
-        return SeatManagement.getSeats();
+    public ArrayList<Seat> showSeats() {
+        return seatManagement.getSeats();
     }
 
-    public static ArrayList<Seat> showClientSeats() {
+    public ArrayList<Seat> showClientSeats() {
         String clientName;
         ArrayList<Seat> clientSeats = new ArrayList<>();
         while (true) {
@@ -78,7 +81,7 @@ public class CinemaManagement {
                 System.out.println(e.getMessage());
             }
         }
-        for (Seat seat : SeatManagement.getSeats()) {
+        for (Seat seat : seatManagement.getSeats()) {
             if (clientName.equals(seat.getClient())) {
                 clientSeats.add(seat);
             }
@@ -86,7 +89,7 @@ public class CinemaManagement {
         return clientSeats;
     }
 
-    public static void bookSeat() {
+    public void bookSeat() {
         int desiredRow;
         int desiredSeat;
         String clientName;
@@ -116,14 +119,14 @@ public class CinemaManagement {
         }
         Seat seat = new Seat(desiredRow, desiredSeat, clientName);
         try {
-            SeatManagement.addSeat(seat);
-            System.out.println("Seat booked successfully\n");
+            seatManagement.addSeat(seat);
+            System.out.println("Seat booked successfully.\n");
         } catch (FreeSeatException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static void cancelBooking() {
+    public void cancelBooking() {
         int bookedRow;
         int bookedSeat;
 
@@ -144,13 +147,13 @@ public class CinemaManagement {
             }
         }
         try {
-            SeatManagement.removeSeat(bookedRow, bookedSeat);
+            seatManagement.removeSeat(bookedRow, bookedSeat);
         } catch (FreeSeatException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static String introduceClientName() throws IncorrectClientNameException {
+    public String introduceClientName() throws IncorrectClientNameException {
         System.out.println("Please, introduce client's name:");
         String name = sc.nextLine();
         for (char c : name.toCharArray()) {
@@ -161,25 +164,25 @@ public class CinemaManagement {
         return name;
     }
 
-    public static int introduceRow() throws IncorrectRowException {
+    public int introduceRow() throws IncorrectRowException {
         System.out.println("Please, select the row:");
         int row = sc.nextInt();
-        if (row >= 1 && row <= Cinema.getNumRows()) {
+        if (row >= 1 && row <= cinema.getNumRows()) {
             sc.nextLine();
             return row;
         } else {
-            throw new IncorrectRowException("The selected row does not exist");
+            throw new IncorrectRowException("The selected row does not exist.\n");
         }
     }
 
-    public static int introduceSeat() throws IncorrectSeatException {
+    public int introduceSeat() throws IncorrectSeatException {
         System.out.println("Please, select the seat:");
         int seat = sc.nextInt();
-        if (seat >= 1 && seat <= Cinema.getNumSeatsPerRow()) {
+        if (seat >= 1 && seat <= cinema.getNumSeatsPerRow()) {
             sc.nextLine();
             return seat;
         } else {
-            throw new IncorrectSeatException("The selected seat does not exist");
+            throw new IncorrectSeatException("The selected seat does not exist.\n");
         }
     }
 }

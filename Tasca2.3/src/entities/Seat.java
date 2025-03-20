@@ -1,6 +1,9 @@
-package objects;
+package entities;
 
-import utils.CinemaManagement;
+import managers.CinemaManagement;
+
+import static entities.Cinema.cinemaManagement;
+import static entities.Cinema.seatManagement;
 
 public class Seat {
 
@@ -26,13 +29,15 @@ public class Seat {
         return this.client;
     }
 
-    public static boolean equals(Seat seat) {
-        for (Seat existingSeat : CinemaManagement.showSeats()) {
-            if (existingSeat.getRowNum() == seat.getRowNum() &&
-                    existingSeat.getSeatNum() == seat.getSeatNum()) {
-                return true;
-            }
-        } return false;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+
+        }
+        Seat seat = (Seat) object;
+        return this.rowNum == seat.rowNum && this.seatNum == seat.seatNum;
     }
 
     @Override
