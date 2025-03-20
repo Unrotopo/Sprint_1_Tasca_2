@@ -27,7 +27,7 @@ public class SeatManagement {
 
     public static void removeSeat(int rowNum, int seatNum) throws FreeSeatException {
         if (searchSeat(rowNum, seatNum) != -1) {
-            seats.remove(searchSeat(rowNum, seatNum));
+            seats.remove(searchSeat(rowNum, seatNum)); // LOCALIZAO
         } else {
             throw new FreeSeatException("The selected seat is already free\n");
         }
