@@ -1,9 +1,7 @@
 # Projecte de Programació en Java
 
 ## Descripció
-Aquest projecte conté diversos exercicis de programació en Java. Utilitza Eclipse o IntelliJ per desenvolupar-los.
-
-Segueix el document de bones pràctiques detallat a l'Sprint 0 per complir les normes en les entregues dels repositoris de GitHub. Pots construir projectes amb Maven, Gradle o només amb Java. El codi ha d'estar escrit en anglès.
+Aquest projecte conté diversos exercicis de programació en Java.
 
 ---
 
@@ -76,11 +74,6 @@ L'aplicació demanarà les dades inicials de la sala de cinema i gestionarà les
 
 ---
 
-## Requeriments
-- Java 8 o superior
-- Eclipse/IntelliJ
-- Coneixements de programació orientada a objectes
-
 ## Autor
-Desenvolupat com a part de les pràctiques d'aprenentatge en Java.
+Luis Portas Montero
 
