@@ -89,7 +89,10 @@ public class Main {
             } catch (EntryException e) {
                 System.out.println("That is not a valid boolean");
                 Entry.sc.nextLine();
-            }
-        }
+            } // No aparece la pregunta en pantalla del boolean.
+            // Hacer preguntas con un poco de sentido humano, para todas.
+            // Especificar la razón de la excepción (qué estamos buscando), eso es una excepción personificada
+        } // El programa no termina.
+        // Revisar limpieza buffer (sobre todo después de los números)
     }
 }

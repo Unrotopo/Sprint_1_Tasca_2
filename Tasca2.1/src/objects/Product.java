@@ -17,4 +17,9 @@ public class Product {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "You got a " + this.name + " that costs " + this.price + " money units.";
+    }
 }

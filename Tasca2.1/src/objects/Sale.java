@@ -30,6 +30,6 @@ public class Sale {
             for (Product product: products) {
                 this.total += product.getPrice();
             }
-        } System.out.println("Total: " + this.total);
+        } System.out.println("Total: " + this.total + " money units.");
     }
 }
