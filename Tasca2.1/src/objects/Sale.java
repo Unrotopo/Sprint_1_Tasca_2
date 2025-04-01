@@ -18,8 +18,8 @@ public class Sale {
         products.add(product);
     }
 
-    public Product getProduct(int index) {
-        return products.get(index);
+    public void getProduct(int index) {
+        System.out.println(products.get(index).toString());
     }
 
     public void calculateTotal() throws EmptySaleException {

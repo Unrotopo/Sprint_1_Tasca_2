@@ -20,6 +20,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "You got a " + this.name + " that costs " + this.price + " money units.";
+        return "You reached for " + this.name + " that costs " + this.price + " money units.";
     }
 }
