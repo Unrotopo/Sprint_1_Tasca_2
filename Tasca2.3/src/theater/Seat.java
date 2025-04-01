@@ -1,9 +1,4 @@
-package entities;
-
-import managers.CinemaManagement;
-
-import static entities.Cinema.cinemaManagement;
-import static entities.Cinema.seatManagement;
+package theater;
 
 public class Seat {
 
@@ -15,6 +10,12 @@ public class Seat {
         this.rowNum = rowNum;
         this.seatNum = seatNum;
         this.client = client;
+    }
+
+    public Seat(int rowNum, int seatNum) {
+        this.rowNum = rowNum;
+        this.seatNum = seatNum;
+        this.client = "";
     }
 
     public int getRowNum() {
@@ -29,12 +30,13 @@ public class Seat {
         return this.client;
     }
 
+    @Override
     public boolean equals(Object object) {
         if (this == object) {
             return true;
         }
-        if (object == null || getClass() != object.getClass()) {
-
+        if (!(object instanceof Seat)) {
+            return false;
         }
         Seat seat = (Seat) object;
         return this.rowNum == seat.rowNum && this.seatNum == seat.seatNum;

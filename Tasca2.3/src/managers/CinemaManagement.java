@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.*;
-import entities.*;
+import theater.*;
 
-import static entities.Cinema.seatManagement;
+import static theater.Cinema.seatManagement;
 
 public class CinemaManagement {
 
@@ -19,7 +19,6 @@ public class CinemaManagement {
 
     public void menu() {
         int option;
-        boolean flag = true;
 
         do {
             System.out.println("""
@@ -47,23 +46,12 @@ public class CinemaManagement {
                     cancelBooking();
                     break;
                 case 5:
-                    showClientSeats().forEach(seat -> {
-                        try {
-                            seatManagement.removeSeat(seat.getRowNum(), seat.getSeatNum());
-                        } catch (FreeSeatException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    });
-                    System.out.println("All client's bookings have been removed.\n");
-                    break;
-                case 0:
-                    System.out.println("Goodbye!");
-                    flag = false;
+                    cancelAllSeatsFromClient();
                     break;
                 default:
                     System.out.println("Invalid option!\nTry with a number from 0 to 5.\n");
             }
-        } while (flag);
+        } while (option != 0);
     }
 
     public ArrayList<Seat> showSeats() {
@@ -71,16 +59,17 @@ public class CinemaManagement {
     }
 
     public ArrayList<Seat> showClientSeats() {
-        String clientName;
+        String clientName = null;
         ArrayList<Seat> clientSeats = new ArrayList<>();
-        while (true) {
+        do {
             try {
                 clientName = introduceClientName();
                 break;
             } catch (IncorrectClientNameException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        } while (clientName == null);
+
         for (Seat seat : seatManagement.getSeats()) {
             if (clientName.equals(seat.getClient())) {
                 clientSeats.add(seat);
@@ -89,34 +78,38 @@ public class CinemaManagement {
         return clientSeats;
     }
 
+    public void cancelAllSeatsFromClient() {
+        showClientSeats().forEach(seat -> {
+            try {
+                seatManagement.removeSeat(seat.getRowNum(), seat.getSeatNum());
+            } catch (FreeSeatException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+        System.out.println("All client's bookings have been removed.\n");
+    }
+
     public void bookSeat() {
         int desiredRow;
         int desiredSeat;
         String clientName;
+
         while (true) {
             try {
                 desiredRow = introduceRow();
-                break;
-            } catch (IncorrectRowException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        while (true) {
-            try {
                 desiredSeat = introduceSeat();
-                break;
-            } catch (IncorrectSeatException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        while (true) {
-            try {
                 clientName = introduceClientName();
                 break;
-            } catch (IncorrectClientNameException e) {
+
+            } catch (IncorrectRowException e) {
                 System.out.println(e.getMessage());
+            } catch (IncorrectSeatException e) {
+                throw new RuntimeException(e);
+            } catch (IncorrectClientNameException e) {
+                throw new RuntimeException(e);
             }
         }
+
         Seat seat = new Seat(desiredRow, desiredSeat, clientName);
         try {
             seatManagement.addSeat(seat);
@@ -133,19 +126,15 @@ public class CinemaManagement {
         while (true) {
             try {
                 bookedRow = introduceRow();
+                bookedSeat = introduceSeat();
                 break;
             } catch (IncorrectRowException e) {
                 System.out.println(e.getMessage());
-            }
-        }
-        while (true) {
-            try {
-                bookedSeat = introduceSeat();
-                break;
             } catch (IncorrectSeatException e) {
-                System.out.println(e.getMessage());
+                throw new RuntimeException(e);
             }
         }
+
         try {
             seatManagement.removeSeat(bookedRow, bookedSeat);
         } catch (FreeSeatException e) {
@@ -156,6 +145,7 @@ public class CinemaManagement {
     public String introduceClientName() throws IncorrectClientNameException {
         System.out.println("Please, introduce client's name:");
         String name = sc.nextLine();
+
         for (char c : name.toCharArray()) {
             if (Character.isDigit(c)) {
                 throw new IncorrectClientNameException("Name cannot contain numbers\n");
@@ -167,22 +157,24 @@ public class CinemaManagement {
     public int introduceRow() throws IncorrectRowException {
         System.out.println("Please, select the row:");
         int row = sc.nextInt();
-        if (row >= 1 && row <= cinema.getNumRows()) {
+
+        if (!(row >= 1 && row <= cinema.getNumRows())) {
+            throw new IncorrectRowException("The selected row does not exist.\n");
+        } else {
             sc.nextLine();
             return row;
-        } else {
-            throw new IncorrectRowException("The selected row does not exist.\n");
         }
     }
 
     public int introduceSeat() throws IncorrectSeatException {
         System.out.println("Please, select the seat:");
         int seat = sc.nextInt();
-        if (seat >= 1 && seat <= cinema.getNumSeatsPerRow()) {
+
+        if (!(seat >= 1 && seat <= cinema.getNumSeatsPerRow())) {
+            throw new IncorrectSeatException("The selected seat does not exist.\n");
+        } else {
             sc.nextLine();
             return seat;
-        } else {
-            throw new IncorrectSeatException("The selected seat does not exist.\n");
         }
     }
 }
