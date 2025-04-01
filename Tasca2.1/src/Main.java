@@ -3,7 +3,7 @@ import objects.Product;
 import objects.Sale;
 
 public class Main {
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         SaleManager saleManager = new SaleManager();
         Sale emptySale = new Sale();
@@ -24,5 +24,5 @@ public class Main {
 
         System.out.println("\nWe try to reach a non existing product.");
         saleManager.reachElement(sale, 21);
-    }
+}
 }

@@ -1,8 +1,9 @@
-import controller.EntryController;
+import manager.EntryManager;
 
 public class Main {
     public static void main(String[] args) {
 
-        EntryController.entryLauncher();
+        EntryManager entryManager = new EntryManager();
+        entryManager.entryLauncher();
     }
 }

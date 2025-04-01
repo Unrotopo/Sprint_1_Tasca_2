@@ -11,39 +11,43 @@ public class Entry {
 
     public static byte readByte(String message) throws InputMismatchException {
         System.out.println(message);
-        if (sc.hasNextByte()) {
-            return sc.nextByte();
-        } else {
+
+        if (!sc.hasNextByte()) {
             throw new InputMismatchException();
+        } else {
+            return sc.nextByte();
         }
     }
 
     public static int readInt(String message) throws InputMismatchException {
         System.out.println(message);
-        int input = sc.nextInt();
-        if (input > 0) {
-            sc.nextLine();
-            return input;
-        } else {
+        String input = sc.nextLine();
+
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
             throw new InputMismatchException();
         }
     }
 
     public static float readFloat(String message) throws InputMismatchException {
         System.out.println(message);
-        if (sc.hasNextFloat()) {
-            return sc.nextFloat();
-        } else {
-            sc.nextLine();
+        String input = sc.nextLine();
+
+        try {
+            return Float.parseFloat(input);
+        } catch (NumberFormatException e) {
             throw new InputMismatchException();
         }
     }
 
     public static double readDouble(String message) throws InputMismatchException {
         System.out.println(message);
-        if (sc.hasNextDouble()) {
-            return sc.nextDouble();
-        } else {
+        String input = sc.nextLine();
+
+        try {
+            return Double.parseDouble(input);
+        } catch (NumberFormatException e) {
             throw new InputMismatchException();
         }
     }
@@ -51,34 +55,33 @@ public class Entry {
     public static char readChar(String message) throws EntryException {
         System.out.println(message);
         String input = sc.next();
-        if (input.length() == 1) {
-            if (Character.isLetter(input.charAt(0))) {
-                return input.charAt(0);
-            } else {
-                throw new EntryException(message);
-            }
-        } throw new EntryException(message);
+
+        if (input.length() != 1 || !Character.isLetter(input.charAt(0))) {
+            throw new EntryException(message);
+        } else {
+            return input.charAt(0);
+        }
     }
 
     public static String readString(String message) throws EntryException {
         System.out.println(message);
-        sc.nextLine();
         String input = sc.nextLine();
-        if (!input.isEmpty()) {
-            return input;
-        } else {
+
+        if (input.isEmpty()) {
             throw new EntryException(message);
+        } else {
+            return input;
         }
     }
+
     public static boolean readBoolean(String message) throws EntryException {
         System.out.println(message);
         String input = sc.nextLine();
-        if (input.equalsIgnoreCase("y")) {
-            return true;
-        } else if (input.equalsIgnoreCase("n")) {
-            return false;
-        } else {
+
+        if (!(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("n"))) {
             throw new EntryException(message);
+        } else {
+            return input.equalsIgnoreCase("y");
         }
     }
 }
